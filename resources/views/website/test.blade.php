@@ -1,0 +1,178 @@
+﻿<!doctype html>
+<html>
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <title>Shipment Track Widget Flat Responsive Widget Template :: w3layouts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords"
+        content="Shipment Track Widget Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link
+        href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+        rel='stylesheet' type='text/css'>
+    <link href="{{ asset('inWebsiteTracker/p.w3layouts.com/demos/shipment_track/web/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+</head>
+
+<body>
+    <script src='{{ asset('inWebsiteTracker/ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js') }}'></script>
+    <script src="{{ asset('inWebsiteTracker/m.servedby-buysellads.com/monetization.js')}}" type="text/javascript"></script>
+    <script>
+        (function () {
+            if (typeof _bsa !== 'undefined' && _bsa) {
+                // format, zoneKey, segment:value, options
+                _bsa.init('flexbar', 'CKYI627U', 'placement:w3layoutscom');
+            }
+        })();
+    </script>
+    <script>
+        (function () {
+            if (typeof _bsa !== 'undefined' && _bsa) {
+                // format, zoneKey, segment:value, options
+                _bsa.init('fancybar', 'CKYDL2JN', 'placement:demo');
+            }
+        })();
+    </script>
+    <script>
+        (function () {
+            if (typeof _bsa !== 'undefined' && _bsa) {
+                // format, zoneKey, segment:value, options
+                _bsa.init('stickybox', 'CKYI653J', 'placement:w3layoutscom');
+            }
+        })();
+    </script>
+    <!--<script>(function(v,d,o,ai){ai=d.createElement("script");ai.defer=true;ai.async=true;ai.src=v.location.protocol+o;d.head.appendChild(ai);})(window, document, "//a.vdo.ai/core/w3layouts_V2/vdo.ai.js?vdo=34");</script>-->
+    <div id="codefund">
+        <!-- fallback content -->
+    </div>
+    {{-- <script src="https://ethicalads.io/?ref=codefund" async="async"></script> --}}
+
+    {{-- <script async src='../../../js/autotrack.js'></script> --}}
+
+    {{-- <meta name="robots" content="noindex"> --}}
+
+    <body>
+        <link rel="stylesheet" href="{{ asset('inWebsiteTracker/p.w3layouts.com/images/demobar_w3_4thDec2019.css')}}">
+        <!-- Demo bar start -->
+        <div id="w3lDemoBar" class="w3l-demo-bar">
+            <a href="https://w3layouts.com/?p=14736" ga-on="click" ga-event-category="Shipment Track Widget  Template"
+                ga-event-action="view" ga-event-label="Shipment Track Widget  - view">
+                <span class="w3l-icon -back">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path opacity=".87" fill="none" d="M0 0h24v24H0V0z" />
+                        <path
+                            d="M16.62 2.99c-.49-.49-1.28-.49-1.77 0L6.54 11.3c-.39.39-.39 1.02 0 1.41l8.31 8.31c.49.49 1.28.49 1.77 0s.49-1.28 0-1.77L9.38 12l7.25-7.25c.48-.48.48-1.28-.01-1.76z" />
+                        </svg>
+                </span>
+                <span class="w3l-text">Back</span>
+            </a>
+            <a href="https://w3layouts.com/" class="w3l-logo">W3layouts</a>
+            <div class="w3l-template-options">
+                <a href="https://w3layouts.com/?p=14736" class="w3l-download" ga-on="click"
+                    ga-event-category="Shipment Track Widget  Template" ga-event-action="download-options"
+                    ga-event-label="Shipment Track Widget  - Download options" title="Free download requires Backlink">
+                    <span class="w3l-icon -download">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path
+                                d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z" />
+                            <path fill="none" d="M0 0h24v24H0z" /></svg>
+                    </span>
+                    <span class="w3l-text">Download</span>
+                </a>
+                <a href="https://w3layouts.com/?p=14736" class="w3l-buy" ga-on="click"
+                    ga-event-category="Shipment Track Widget  Template" ga-event-action="Buy Now"
+                    ga-event-label="Shipment Track Widget  - Buy" title="Remove Backlink from template">
+                    <span class="w3l-icon -buy">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path
+                                d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
+                            <path d="M0 0h24v24H0z" fill="none" /></svg>
+                    </span>
+                    <span class="w3l-text">Buy Now</span>
+                </a>
+            </div>
+        </div>
+
+        <!---728x90--->
+
+        <div class="header">
+            <h1>Shipment Track</h1>
+        </div>
+        <!---728x90--->
+
+        <div class="content">
+            <div class="content1">
+                <h2>Order Tracking: Order No</h2>
+            </div>
+            <div class="content2">
+                <div class="content2-header1">
+                    <p>Shipped Via : <span>Ipsum Dolor</span></p>
+                </div>
+                <div class="content2-header1">
+                    <p>Status : <span>Checking Quality</span></p>
+                </div>
+                <div class="content2-header1">
+                    <p>Expected Date : <span>7-NOV-2015</span></p>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="content3">
+                <div class="shipment">
+                    <div class="confirm">
+                        <div class="imgcircle">
+                            <span class="fa fa-envelope" style="color: #FFFFFF; position:relative; top:22px; width:30px; height:auto;"></span>
+                        </div>
+                        <span class="line"></span>
+                        <p>Confirmed Order</p>
+                    </div>
+                    <div class="process">
+                        <div class="imgcircle">
+                            <span class="fa fa-envelope" style="color: #FFFFFF; position:relative; top:22px; width:30px; height:auto;"></span>
+                        </div>
+                        <span class="line"></span>
+                        <p>Processing Order</p>
+                    </div>
+                    <div class="quality">
+                        <div class="imgcircle">
+                            <span class="fa fa-envelope" style="color: #FFFFFF; position:relative; top:22px; width:30px; height:auto;"></span>
+                        </div>
+                        <span class="line"></span>
+                        <p>Quality Check</p>
+                    </div>
+                    <div class="dispatch">
+                        <div class="imgcircle">
+                            <span class="fa fa-envelope" style="color: #FFFFFF; position:relative; top:22px; width:30px; height:auto;"></span>
+                        </div>
+                        <span class="line"></span>
+                        <p>Dispatched Item</p>
+                    </div>
+                    <div class="delivery">
+                        <div class="imgcircle">
+                            <span class="fa fa-envelope" style="color: #FFFFFF; position:relative; top:22px; width:30px; height:auto;"></span>
+                        </div>
+                        <p>Product Delivered</p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <!---728x90--->
+
+        <div class="footer">
+            <p>Copyright © Shipment Track Widget. All Rights Reserved | Design by <a href="http://w3layouts.com/"
+                    target="_blank">W3layouts</a></p>
+        </div>
+    </body>
+</html>

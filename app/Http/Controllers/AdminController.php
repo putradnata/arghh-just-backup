@@ -64,17 +64,18 @@ class AdminController extends Controller
         ];
 
         $message = [
-            'username.required' => 'Wajib diisi',
-            'password.required' => 'Wajib diisi',
-            'username.max' => 'Maksimal 25 Karakter',
-            'password.min' => 'Minimal 8 Karakter',
+            'username.required' => 'Username Wajib diisi',
+            'password.required' => 'Password Wajib diisi',
+            'username.max' => 'Username Maksimal 25 Karakter',
+            'password.min' => 'Password Minimal 8 Karakter',
             'email' => 'Masukkan dengan Format Email yang benar',
+            'email.unique' => 'Email Sudah Terdaftar',
         ];
 
         $validate = Validator::make($data,[
             'username' => ['required','max:25'],
             'password' => ['required','string','min:8'],
-            'email' => ['email'],
+            'email' => ['email','unique:users,email'],
         ], $message);
 
         if($validate->fails()){

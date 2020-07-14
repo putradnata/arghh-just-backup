@@ -20,10 +20,18 @@
                         <p>{{ Session::get('error') }}</p>
                     </div>
                 @endif
+
+                @if ($errors->any())
+                <div class="alert alert-danger errorAlert">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </div>
+                @endif
             </div>
             <div class="card-body">
                 <p class="text-muted">Silahkan ajukan surat melalui form berikut.</p>
-                <form method="POST" action="{{ route('pengajuan-surat.store') }}" enctype="multipart/form-data">
+                <form method="POST" class="form-horizontal" action="{{ route('pengajuan-surat.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="pemohon">Pemohon</label>
@@ -39,7 +47,7 @@
                     <div class="form-group">
                         <label for="suratDiajukan">Surat yang Diajukan</label>
                         <select class="form-control" id="suratDiajukan" name="suratDiajukan">
-                            <option hidden> ---</option>
+                            <option hidden> </option>
                             @foreach ($surat as $jenisSurat)
                                 <option value="{{ $jenisSurat->id }}">{{ $jenisSurat->jenis }}</option>
                             @endforeach
@@ -98,14 +106,18 @@
     {{-- init select for keluarga --}}
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#pemohon").select2();
+            $("#pemohon").select2({
+                width: '100%',
+            });
         });
     </script>
 
     {{-- init select for surat --}}
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#suratDiajukan").select2();
+            $("#suratDiajukan").select2({
+                width: '100%',
+            });
         });
     </script>
 

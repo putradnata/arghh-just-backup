@@ -59,6 +59,7 @@
                     @else
                         <li><a href="#">Daftar</a></li>
                     @endif
+                    <li><a href="/lacak-surat">Lacak Surat</a></li>
                 </ul>
             </nav>
             <!-- #nav-menu-container -->

@@ -46,10 +46,18 @@ class PengajuanSuratController extends Controller
     public function store(Request $request)
     {
 
+        $messages = [
+            'fileKK.required' => 'File KK Wajib Di Upload',
+            'fileKK.mimes' => 'File Harus Berupa JPG, PNG, JPEG, atau PDF',
+            'keperluan.required' => 'Keperluan Wajib Diisi',
+            'suratDiajukan.required' => 'Surat Wajib Diisi',
+        ];
+
         $request->validate([
             'fileKK' => 'required|mimes:jpeg,png,jpg,pdf|max:4096',
             'keperluan'=> 'required',
-        ]);
+            'suratDiajukan'=>'required'
+        ],$messages);
 
         //get nik
         $nik = $request->pemohon;
@@ -94,18 +102,43 @@ class PengajuanSuratController extends Controller
 
         $fileKKName = time()."_"."KK"."-".$nik.".".$request->fileKK->extension();
 
-        //check has letter or not
-        $checkLetter = DB::table('pengajuan_surat')
+        //check has letter or not | backup original | this one check for every single nik
+        // $checkLetter = DB::table('pengajuan_surat')
+        //                 ->join('penduduk','pengajuan_surat.NIK','=','penduduk.NIK')
+        //                 ->select(
+        //                     'penduduk.nama as namaPenduduk',
+        //                     'penduduk.noKK as nomerKK',
+        //                     'pengajuan_surat.*'
+        //                 )
+        //                 ->where('penduduk.NIK',\Auth::user()->NIK)
+        //                 ->get();
+
+            $checkLetter = DB::table('pengajuan_surat')
                         ->join('penduduk','pengajuan_surat.NIK','=','penduduk.NIK')
                         ->select(
                             'penduduk.nama as namaPenduduk',
                             'penduduk.noKK as nomerKK',
                             'pengajuan_surat.*'
                         )
-                        ->where('penduduk.NIK',\Auth::user()->NIK)
-                        ->get();
+                        ->orderBy('created_at','DESC')
+                        ->first();
 
-        if($checkLetter->isEmpty()){
+            $findLatestLetter = DB::table('pengajuan_surat')
+                                ->select('noSurat',DB::raw('MAX(noSurat)'))
+                                ->where('noSurat','like','%' .$banjarInitial. '%')
+                                ->where('noSurat','like','%-' .$conversion. '-%')
+                                ->groupBy('noSurat')
+                                ->orderByDesc('noSurat')
+                                ->first();
+
+            $noUrut = substr($findLatestLetter->noSurat,0,3);
+            $maxid=explode("-",$findLatestLetter->noSurat);
+            $noUrut = $maxid[0];
+            $noUrut++;
+
+            $newLetterNumber = sprintf('%03s',$noUrut).'-'.$banjarInitial.'-'.$conversion.'-'.$m[0];
+
+        if(empty($checkLetter)){
 
             $newLetterNumber = '001'.'-'.$banjarInitial.'-'.$conversion.'-'.$m[0];
 
@@ -138,17 +171,18 @@ class PengajuanSuratController extends Controller
 
                 if($insert && $insertUsaha){
                     $fileKK->move('files',$fileKKName);
-                    return redirect('penduduk')->with('success','Surat Berhasil Diajukan');
+                    return redirect('penduduk')->with('success','Surat Berhasil Diajukan dengan Nomor Surat '.$newLetterNumber.'Anda Dapat Melacak Surat Pada Halaman Utama Tanpa Harus Masuk Pada Sistem');
                 }else{
                     return redirect('penduduk')->with('error','Terjadi Kesalahan Saat Mengajukan Surat');
                 }
 
             }else{
+
                 $insert = PengajuanSurat::create($data);
 
                 if($insert){
                     $fileKK->move('files',$fileKKName);
-                    return redirect('penduduk')->with('success','Surat Berhasil Diajukan');
+                    return redirect('penduduk')->with('success','Surat Berhasil Diajukan dengan Nomor Surat'.$newLetterNumber.'Anda Dapat Melacak Surat Pada Halaman Utama Tanpa Harus Masuk Pada Sistem');
                 }else{
                     return redirect('penduduk')->with('error','Terjadi Kesalahan Saat Mengajukan Surat');
                 }
@@ -200,7 +234,7 @@ class PengajuanSuratController extends Controller
 
                 if($insert && $insertUsaha){
                     $fileKK->move('files',$fileKKName);
-                    return redirect('penduduk')->with('success','Surat Berhasil Diajukan');
+                    return redirect('penduduk')->with('success','Surat Berhasil Diajukan dengan Nomor Surat'.$newLetterNumber.'Anda Dapat Melacak Surat Pada Halaman Utama Tanpa Harus Masuk Pada Sistem');
                 }else{
                     return redirect('penduduk')->with('error','Terjadi Kesalahan Saat Mengajukan Surat');
                 }
@@ -210,7 +244,7 @@ class PengajuanSuratController extends Controller
 
                 if($insert){
                     $fileKK->move('files',$fileKKName);
-                    return redirect('penduduk')->with('success','Surat Berhasil Diajukan');
+                    return redirect('penduduk')->with('success','Surat Berhasil Diajukan dengan Nomor Surat '.$newLetterNumber.'Anda Dapat Melacak Surat Pada Halaman Utama Tanpa Harus Masuk Pada Sistem');
                 }else{
                     return redirect('penduduk')->with('error','Terjadi Kesalahan Saat Mengajukan Surat');
                 }

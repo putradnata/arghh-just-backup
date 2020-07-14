@@ -64,10 +64,41 @@
                         @endif
                     </select>
                 </div>
+
+                @if(!isset($banjarFind->id))
+                    <div class="form-group">
+                        <label for="noTelp">No Telepon Kelian</label>
+                        <input class="form-control" id="noTelp" name="noTelp" type="text" placeholder="Nomor Telepon">
+                    </div>
+                @else
                 <div class="form-group">
                     <label for="noTelp">No Telepon Kelian</label>
-                    <input class="form-control" id="noTelp" name="noTelp" type="text" placeholder="Nomor Telepon" value="{{ old('noTelp', $request->noTelp) }}">
+                    <input class="form-control" id="noTelp" name="noTelp" type="text" placeholder="Nomor Telepon" value="{{ old('noTelp', $requestKelian->first()->nomerTelpon) }}">
                 </div>
+                @endif
+
+                @if(!isset($banjarFind->id))
+                    <div class="form-group col-3">
+                        <label for="mulaiMenjabat">Mulai Menjabat</label>
+                        <input class="form-control" id="mulaiMenjabat" name="mulaiMenjabat" type="text">
+                    </div>
+
+                    <div class="form-group col-3">
+                        <label for="selesaiMenjabat">Selesai Menjabat</label>
+                        <input class="form-control" id="selesaiMenjabat" name="selesaiMenjabat" type="text">
+                    </div>
+                @else
+                    <div class="form-group col-3">
+                        <label for="mulaiMenjabat">Mulai Menjabat</label>
+                        <input class="form-control" id="mulaiMenjabat" name="mulaiMenjabat" type="text" value="{{ old('mulaiMenjabat', $requestKelian->first()->mulaiMenjabat) }}">
+                    </div>
+
+                    <div class="form-group col-3">
+                        <label for="selesaiMenjabat">Selesai Menjabat</label>
+                        <input class="form-control" id="selesaiMenjabat" name="selesaiMenjabat" type="text" value="{{ old('selesaiMenjabat', $requestKelian->first()->selesaiMenjabat) }}">
+                    </div>
+                @endif
+
                 <div class="form-group">
                     <label for="keteranganBanjar">Keterangan</label>
                     <input class="form-control" id="keteranganBanjar" name="keteranganBanjar" placeholder="Keterangan" value="{{ old('keteranganBanjar', $request->keterangan) }}">
@@ -87,7 +118,22 @@
     {{-- init select for kelian --}}
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#kelian").select2();
+            $("#kelian").select2({
+                'width': '100%',
+            });
         });
     </script>
+
+    <!-- Init Zebra Date Picker -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#mulaiMenjabat").Zebra_DatePicker();
+        });
+    </script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#selesaiMenjabat").Zebra_DatePicker();
+    });
+</script>
 @endsection

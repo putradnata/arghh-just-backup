@@ -9,7 +9,7 @@ class Banjar extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['nama','alamat'];
+    protected $fillable = ['nama','alamat','keterangan'];
     protected $dates = ['deleted_at'];
     protected $table = 'banjar';
     protected $guarded = ['id','created_at','updated_at','deleted_at'];

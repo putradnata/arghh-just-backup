@@ -41,6 +41,7 @@ class BanjarController extends Controller
 
         $findPenduduk = DB::table('penduduk')
                         ->whereNotIn('NIK',[DB::raw('SELECT NIK from kelian_banjar_dinas')])
+                        ->where('penduduk.statusPenduduk','A')
                         ->get();
 
         return view('operator/banjar.form', [
@@ -83,13 +84,36 @@ class BanjarController extends Controller
                     ->withInput();
         }
 
+        // dd($request->all());
+
         $insertBanjar = Banjar::create([
             'nama' => $request->namaBanjar,
             'alamat' => $request->alamatBanjar,
             'keterangan' => $request->keteranganBanjar,
         ]);
 
-        return redirect('operator/banjar')->with('success','Data Banjar Berhasil Tersimpan');
+            if($insertBanjar){
+                $selectNewBanjar = DB::table('banjar')->orderBy('id','DESC')->first();
+
+                // dd($selectNewBanjar->id);
+                $insertKelian = DB::table('kelian_banjar_dinas')
+                        ->insert([
+                            'idBanjar' => $selectNewBanjar->id,
+                            'NIK' => $request->kelian,
+                            'noTelp' => $request->noTelp,
+                            'mulaiMenjabat' => $request->mulaiMenjabat,
+                            'selesaiMenjabat' => $request->selesaiMenjabat,
+                            'created_at' => \Carbon\Carbon::now(),
+                        ]);
+
+                if($insertKelian){
+                    return redirect('operator/banjar')->with('success','Data Banjar Berhasil Tersimpan');
+                }
+
+                return redirect('operator/banjar')->with('error','Terjadi Kesalahan Saat Menyimpan');
+            }
+
+            return redirect('operator/banjar')->with('error','Terjadi Kesalahan Saat Menyimpan');
 
     }
 
@@ -111,12 +135,13 @@ class BanjarController extends Controller
                         ->where('banjar.id',$id)
                         ->get();
 
-        $request =  (object) $banjar->getDefaultValues();
+        // dd($findBanjar);
+
+        // $request =  (object) $findBanjar->getDefaultValues();
 
         // dd($findBanjar);
         return view('operator/banjar.dataModal', [
-            'selectBanjar' => $findBanjar,
-            'request' => $request,
+            'selectBanjar' => $findBanjar
         ])->render();
     }
 
@@ -132,12 +157,13 @@ class BanjarController extends Controller
 
         $findKelian = DB::table('penduduk')
                         ->join('kelian_banjar_dinas','kelian_banjar_dinas.NIK','=','penduduk.NIK')
-                        ->select('penduduk.*','kelian_banjar_dinas.noTelp')
+                        ->select('penduduk.*','kelian_banjar_dinas.noTelp as nomerTelpon','kelian_banjar_dinas.mulaiMenjabat','kelian_banjar_dinas.selesaiMenjabat')
                         ->where('kelian_banjar_dinas.idBanjar',$id)
                         ->get();
 
         $findPenduduk = DB::table('penduduk')
                         ->whereNotIn('NIK',[DB::raw('SELECT NIK from kelian_banjar_dinas')])
+                        ->where('penduduk.statusPenduduk','A')
                         ->get();
 
         $request = (object) $banjarFind;
@@ -173,6 +199,39 @@ class BanjarController extends Controller
 
         $update = $banjar::where('id',$id)
                     ->update($data);
+
+        if($update){
+
+            $dataKelian = [
+                'idBanjar' => $id,
+                'NIK' => $request->kelian,
+                'noTelp' => $request->noTelp,
+                'mulaiMenjabat' => $request->mulaiMenjabat,
+                'selesaiMenjabat' => $request->selesaiMenjabat,
+                'updated_at' => \Carbon\Carbon::now(),
+            ];
+
+            $message = [
+                'noTelp.numeric' => 'Nomer Telpon Harus Angka',
+            ];
+            $this->validate($request, [
+                'noTelp' => 'required|numeric|digits_between:10,13',
+            ],$message);
+
+            // $validate = Validator::make($data,[
+            //     'noTelp' =>  'required|digits_between:1,2',
+            // ], $message);
+            // dd($validate);
+            // if($validate->fails()){
+            //     return redirect('operator/banjar/'.$id.'/edit')
+            //     ->withErrors($validate)
+            //     ->withInput();
+            // }
+
+            $updateKelian = DB::table('kelian_banjar_dinas')
+                            ->where('idBanjar',$id)
+                            ->update($dataKelian);
+        }
 
         return redirect('operator/banjar')->with('success','Data Banjar Berhasil Diperbaharui');
     }

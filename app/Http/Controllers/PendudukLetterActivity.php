@@ -10,6 +10,12 @@ use Carbon\Carbon;
 
 class PendudukLetterActivity extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function LetterTracking(){
         $getPenduduk = DB::table('penduduk')
                         ->where('NIK',\Auth::user()->NIK)

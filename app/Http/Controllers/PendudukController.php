@@ -27,7 +27,7 @@ class PendudukController extends Controller
             ->join('banjar', 'penduduk.idBanjar', '=', 'banjar.id')
             ->select('penduduk.*', 'banjar.nama as namaBanjar')
             ->where('penduduk.statusPenduduk','A')
-            ->orderBy('penduduk.idBanjar', 'ASC')
+            ->orderBy('penduduk.created_at', 'DESC')
             ->get();
 
         return view('operator/kependudukan.index',['penduduk' => $penduduk]);
@@ -83,6 +83,7 @@ class PendudukController extends Controller
 
         $message = [
             'nikpenduduk.required' => 'Nomor Induk Kependudukan Wajib Diisi',
+            'nikpenduduk.unique' => 'Nomor Induk Kependudukan Sudah Terdaftar',
             'noKK.required' => 'Nomor KK Wajib Diisi',
             'namaLengkap.required' => 'Nama Lengkap Wajib Diisi',
             'jenisKelamin.required' => 'Jenis Kelamin Wajib Diisi',
@@ -100,7 +101,7 @@ class PendudukController extends Controller
         ];
 
         $validate = Validator::make($data, [
-            'nikpenduduk' => 'required | string | max:16',
+            'nikpenduduk' => 'required | string | max:16 | unique:penduduk,NIK',
             'noKK' => 'required | string| max:16',
             'namaLengkap' => 'required',
             'jenisKelamin' => 'required',
@@ -386,6 +387,17 @@ class PendudukController extends Controller
             'tanggalLapor' => \Carbon\Carbon::now()->format('Y-m-d'),
             'created_at' => \Carbon\Carbon::now(),
         ];
+
+        $message = [
+            'NIK.required' => 'Data Penduduk Wajib Diisi',
+            'padaTanggal.required' => 'Tanggal Kematian Wajib Diisi',
+            'sebabKematian.required' => 'Sebab Kematian Wajib Diisi',
+        ];
+        $this->validate($request, [
+            'NIK' => 'required',
+            'padaTanggal' => 'required',
+            'sebabKematian' => 'required',
+        ],$message);
 
         $insert = DB::table('penduduk_meninggal')
                     ->insert($data);

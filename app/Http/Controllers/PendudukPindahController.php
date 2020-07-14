@@ -79,6 +79,7 @@ class PendudukPindahController extends Controller
             'created_at' => \Carbon\Carbon::now(),
         ];
 
+        // dd($data);
 
         $insertPindah = DB::table('penduduk_pindah')
                             ->insert($data);
@@ -92,7 +93,12 @@ class PendudukPindahController extends Controller
                                 ]);
 
             if($updateFirst){
+
                 $pengikut = $request->pindah;
+
+                if(!$pengikut){
+                    return redirect('operator/penduduk-pindah')->with('success','Data Berhasil Ditambahkan');
+                }
 
                 for($x=0; $x<count($pengikut); $x++){
                     $insertData = DB::table('penduduk_pindah')
@@ -229,6 +235,7 @@ class PendudukPindahController extends Controller
 
         return view('/operator/kependudukan/penduduk-pindah.fetchPengikut',[
             'fetched' => $pengikut,
+            'getKK' => $getnoKK->noKK,
         ])->render();
     }
 }

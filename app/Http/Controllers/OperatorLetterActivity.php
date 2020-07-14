@@ -6,10 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class OperatorLetterActivity extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function incomingLetter(){
         //current date
         $today = \Carbon\Carbon::now()->format('Y-m-d');
@@ -42,7 +49,10 @@ class OperatorLetterActivity extends Controller
     public function OperatorProcess($id){
         $operatorProcess = DB::table('pengajuan_surat')
                                     ->where('noSurat',$id)
-                                    ->update(['status' => 'D']);
+                                    ->update([
+                                        'idUser' => \Auth::user()->id,
+                                        'status' => 'D'
+                                    ]);
 
         if($operatorProcess){
             return redirect('operator/surat-masuk')->with('success','Status Berhasil Diperbaharui');
@@ -54,7 +64,10 @@ class OperatorLetterActivity extends Controller
     public function KelianBanjarProcess($id){
         $operatorProcess = DB::table('pengajuan_surat')
                                     ->where('noSurat',$id)
-                                    ->update(['status' => 'KBD']);
+                                    ->update([
+                                        'idUser' => \Auth::user()->id,
+                                        'status' => 'KBD'
+                                    ]);
 
         if($operatorProcess){
             return redirect('operator/surat-masuk')->with('success','Status Berhasil Diperbaharui');
@@ -66,7 +79,10 @@ class OperatorLetterActivity extends Controller
     public function KepalaDesaProcess($id){
         $operatorProcess = DB::table('pengajuan_surat')
                                     ->where('noSurat',$id)
-                                    ->update(['status' => 'KD']);
+                                    ->update([
+                                        'idUser' => \Auth::user()->id,
+                                        'status' => 'KD'
+                                    ]);
 
         if($operatorProcess){
             return redirect('operator/surat-masuk')->with('success','Status Berhasil Diperbaharui');
@@ -78,7 +94,10 @@ class OperatorLetterActivity extends Controller
     public function CompletedProcess($id){
         $operatorProcess = DB::table('pengajuan_surat')
                                     ->where('noSurat',$id)
-                                    ->update(['status' => 'S']);
+                                    ->update([
+                                        'idUser' => \Auth::user()->id,
+                                        'status' => 'S'
+                                    ]);
 
         if($operatorProcess){
             return redirect('operator/surat-masuk')->with('success','Status Berhasil Diperbaharui');
@@ -135,7 +154,7 @@ class OperatorLetterActivity extends Controller
                                 )
                                 ->where('kelian_banjar_dinas.idBanjar',$whosBelong->idBanjar)
                                 ->first();
-
+        // dd($findKelian);
         if($whatLetter->surat == "Surat Keterangan Usaha"){
 
             $findUsaha = DB::table('usaha')
@@ -179,6 +198,15 @@ class OperatorLetterActivity extends Controller
             ]);
 
             return $pdf->stream('Surat-Keterangan-Tempat-Tinggal');
+        }else if($whatLetter->surat == "Surat Keterangan Belum Kawin"){
+            $pdf = PDF::loadview('layouts/surat/keterangan-belum-kawin.index',[
+                'pemohon' => $whosBelong,
+                'kelian' => $findKelian,
+                'noSurat' => $id,
+                'surat' =>$whatLetter,
+            ]);
+
+            return $pdf->stream('Surat-Keterangan-Belum-Kawin');
         }
     }
 

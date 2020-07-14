@@ -36,6 +36,7 @@ class HomeController extends Controller
 
         //start select banjar
         $banjar = DB::table('banjar')
+                    ->where('deleted_at',NULL)
                     ->get();
 
         //do | Male

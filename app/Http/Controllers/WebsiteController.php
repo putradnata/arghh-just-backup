@@ -8,6 +8,7 @@ use App\WebsiteContent;
 
 class WebsiteController extends Controller
 {
+
     public function index(){
         $getContent = WebsiteContent::first();
 
@@ -46,6 +47,47 @@ class WebsiteController extends Controller
             'perempuan' => $countPendudukFemale,
             'kepalaKeluarga' => $countKepalaKeluarga,
             'banjar'=>$countBanjar,
+        ]);
+    }
+
+    public function searchLetter(){
+        $getContent = WebsiteContent::first();
+
+        $letterTracking = null;
+
+        return view('website.search-letter',[
+            'content' => $getContent,
+            'letterTracking' => $letterTracking,
+        ]);
+    }
+
+    public function findLetter(Request $request){
+        $getContent = WebsiteContent::first();
+
+        $noSurat = $request->nomerSurat;
+
+        $getLetters = DB::table('pengajuan_surat')
+                        ->join('penduduk','pengajuan_surat.NIK','=','penduduk.NIK')
+                        ->join('jenis_surat','pengajuan_surat.idJenisSurat','=','jenis_surat.id')
+                        ->select(
+                            'penduduk.nama as namaPenduduk',
+                            'penduduk.noKK as nomerKK',
+                            'pengajuan_surat.*',
+                            'jenis_surat.jenis as jenisSurat',
+                        )
+                        ->Where('noSurat',$noSurat)
+                        ->orderByDesc('pengajuan_surat.created_at')
+                        ->get();
+
+        if(count($getLetters) === 0){
+            return redirect('lacak-surat/#visimisi')->with('error','Surat Tidak Terdaftar');
+        }
+
+        // dd($getLetters);
+
+        return view('website.search-letter',[
+            'content' => $getContent,
+            'letterTracking' => $getLetters,
         ]);
     }
 }

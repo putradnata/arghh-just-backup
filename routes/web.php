@@ -108,6 +108,10 @@ Auth::routes();
 
 Route::get('/','WebsiteController@index');
 
+//Lacak Surat
+Route::get('/lacak-surat','WebsiteController@searchLetter')->name('searchLetter');
+Route::post('/temukan-surat','WebsiteController@findLetter')->name('findletter');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 /* Staging Route  */
@@ -115,6 +119,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 all testing will put here
 */
 
-// Route::get('/staging/operator-list',function(){
-//     return view('operator/operator-list.index');
-// });
+Route::get('/staging/track',function(){
+    return view('/website.test');
+});

@@ -52,7 +52,7 @@
                         <input class="form-control" id="email" name="email" type="email" placeholder="Email">
                     </div>
 
-                    <a class="btn btn-primary" href="{{ url()->previous() }}" type="button">Kembali</a>
+                    <a class="btn btn-primary" href="{{ route('operator-list.index') }}" type="button">Kembali</a>
                     <button class="btn btn-secondary reset" type="reset" data-dismiss="modal">Ulang</button>
                     <button class="btn btn-success" type="submit">Simpan</button>
                 </form>
